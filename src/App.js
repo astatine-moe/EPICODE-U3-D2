@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import MyNav from "./components/MyNav";
+import MyFooter from "./components/MyFooter";
+import Welcome from "./components/Welcome";
+import { Card, Col, Row } from "react-bootstrap";
+import HorrorBooks from "./books/horror.json";
+
+const page = {
+    name: "Morgan's Bookstore",
+};
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <MyNav
+                links={[
+                    { href: "#", name: "Home" },
+                    { href: "#", name: "About" },
+                    { href: "#", name: "Browse" },
+                ]}
+                name={page.name}
+            />
+            <Welcome name={page.name} />
+            <div className="container">
+                <Row xs={2} md={6} className="g-4">
+                    {HorrorBooks.map((book, i) => (
+                        <Col>
+                            <Card>
+                                <Card.Img variant="top" src={book.img} />
+                                <Card.Body>
+                                    <Card.Title>{book.title}</Card.Title>
+                                    <Card.Text>${book.price}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+            </div>
+            <MyFooter name={page.name} />
+        </>
+    );
 }
 
 export default App;
